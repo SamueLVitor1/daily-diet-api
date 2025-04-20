@@ -18,11 +18,23 @@ describe('Create Meal Use Case', () => {
       name: 'xtudo',
       description: 'lanche',
       isOnDiet: false,
-      mealDatetime: new Date(),
+      mealDateTime: new Date(),
       userId: 'user-01'
     })
 
     expect(meal.id).toEqual(expect.any(String))
+  })
+
+  it('should create meal even without description', async () => {
+    const { meal } = await createMealUseCase.execute({
+      name: 'Banana',
+      description: null,
+      isOnDiet: true,
+      mealDateTime: new Date(),
+      userId: 'user-02'
+    })
+
+    expect(meal.description).toBeNull()
   })
 
 })

@@ -27,7 +27,7 @@ model User {
 model Meal {
   id            String   @id @default(uuid())
   name          String
-  description   String
+  description   String?
   meal_datetime DateTime
   is_on_diet    Boolean
   created_at    DateTime @default(now())

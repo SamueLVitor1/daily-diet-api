@@ -3,8 +3,8 @@ import { IMealsRepository } from "../../repositories/meals-repository";
 
 interface CreateMealRequest {
   name: string;
-  description: string;
-  mealDatetime: Date | string;
+  description: string | null;
+  mealDateTime: Date;
   isOnDiet: boolean;
   userId: string;
 }
@@ -19,13 +19,13 @@ export class CreateMealUseCase {
     private mealRepository: IMealsRepository
   ) { }
 
-  async execute({ name, description, isOnDiet, mealDatetime, userId }: CreateMealRequest): Promise<CreateMealResponse> {
+  async execute({ name, description, isOnDiet, mealDateTime, userId }: CreateMealRequest): Promise<CreateMealResponse> {
 
     const meal = await this.mealRepository.create({
       name,
-      description,
+      description: description ?? null,
       is_on_diet: isOnDiet,
-      meal_datetime: mealDatetime,
+      meal_datetime: mealDateTime,
       user_id: userId
     })
 
