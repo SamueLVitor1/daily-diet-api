@@ -6,20 +6,21 @@ import { InMemoryMealsRepository } from "../../repositories/in-memory/in-memory-
 import { UpdateMealUseCase } from "./update-meal";
 import { object } from "zod";
 import { MealNotFoundError } from "../errors/meal-not-found-error";
+import { DeleteMealUseCase } from "./delete-meal";
 
 let mealRepository: InMemoryMealsRepository
 let createMealUseCase: CreateMealUseCase
-let updateMealUseCase: UpdateMealUseCase
+let deleteMealUseCase: DeleteMealUseCase
 
-describe('Update Meal Use Case', () => {
+describe('Delete Meal Use Case', async () => {
 
   beforeEach(() => {
     mealRepository = new InMemoryMealsRepository()
     createMealUseCase = new CreateMealUseCase(mealRepository)
-    updateMealUseCase = new UpdateMealUseCase(mealRepository)
+    deleteMealUseCase = new DeleteMealUseCase(mealRepository)
   })
 
-  it('should be able to update a meal', async () => {
+  it('should be able to delete a meal', async () => {
     const { meal } = await createMealUseCase.execute({
       name: 'xtudo',
       description: 'lanche',
@@ -28,23 +29,25 @@ describe('Update Meal Use Case', () => {
       userId: 'user-01'
     })
 
-    const { meal: updatedMeal } = await updateMealUseCase.execute({
-      name: 'xsalada',
-    }, meal.id)
+    const { meal: meal2 } = await createMealUseCase.execute({
+      name: 'xtudo',
+      description: 'lanche',
+      isOnDiet: false,
+      mealDateTime: new Date(),
+      userId: 'user-01'
+    })
 
-    expect(updatedMeal).toEqual(expect.objectContaining({
-      name: 'xsalada',
-    }))
+    await deleteMealUseCase.execute(meal.id)
 
-    expect(updatedMeal).toEqual(expect.objectContaining({
-      id: meal.id,
-    }))
+    expect(mealRepository.items).toHaveLength(1)
   })
 
-  it('should not be able to update a meal that does not exist', async () => {
-    await expect(() => updateMealUseCase.execute({
-      name: 'xsalada',
-    }, 'meal-01')).rejects.toBeInstanceOf(MealNotFoundError)
+  it('should not be able to delete a meal that does not exist', async () => {
+
+    await expect(() =>
+      deleteMealUseCase.execute('inexistent-meal-id')
+    ).rejects.toBeInstanceOf(MealNotFoundError)
+
   })
 
 })

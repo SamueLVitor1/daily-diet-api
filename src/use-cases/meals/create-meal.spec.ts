@@ -3,7 +3,7 @@ import { IMealsRepository } from "../../repositories/meals-repository";
 import { CreateMealUseCase } from "./create-meal";
 import { InMemoryMealsRepository } from "../../repositories/in-memory/in-memory-meals-repository";
 
-let mealRepository: IMealsRepository
+let mealRepository: InMemoryMealsRepository
 let createMealUseCase: CreateMealUseCase
 
 describe('Create Meal Use Case', () => {

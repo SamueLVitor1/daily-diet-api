@@ -1,0 +1,29 @@
+import { FastifyReply, FastifyRequest } from "fastify";
+import { z } from "zod";
+import { PrismaMealsRepository } from "../../../repositories/prisma/prisma-meals-repository";
+import { DeleteMealUseCase } from "../../../use-cases/meals/delete-meal";
+import { MealNotFoundError } from "../../../use-cases/errors/meal-not-found-error";
+
+export async function deleteMeal(request: FastifyRequest, reply: FastifyReply) {
+
+  const deleteMealParamsSchema = z.object({
+    idMeal: z.string().uuid()
+  })
+
+  const { idMeal } = deleteMealParamsSchema.parse(request.params)
+
+  const mealRepository = new PrismaMealsRepository()
+  const deleteMealUseCase = new DeleteMealUseCase(mealRepository)
+
+  try {
+    await deleteMealUseCase.execute(idMeal)
+    return reply.status(204).send()
+  } catch (error) {
+    if (error instanceof MealNotFoundError) {
+      return reply.status(404).send({ message: error.message })
+    }
+
+    return reply.status(500).send({ message: 'Erro interno do servidor.' })
+  }
+
+}

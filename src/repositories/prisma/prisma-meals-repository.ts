@@ -3,6 +3,7 @@ import { IMealsRepository } from "../meals-repository";
 import { prisma } from "../../lib/prisma";
 
 export class PrismaMealsRepository implements IMealsRepository {
+
   async create(data: Prisma.MealUncheckedCreateInput) {
     const meal = await prisma.meal.create({
       data
@@ -20,6 +21,16 @@ export class PrismaMealsRepository implements IMealsRepository {
     })
 
     return meal
+  }
+
+  async delete(idMeal: string) {
+    await prisma.meal.delete({
+      where: {
+        id: idMeal
+      }
+    })
+
+    return
   }
 
   async findById(idMeal: string) {
