@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { PrismaMealsRepository } from "../../../repositories/prisma/prisma-meals-repository";
 import { UpdateMealUseCase } from "../../../use-cases/meals/update-meal";
+import { MealNotFoundError } from "../../../use-cases/errors/meal-not-found-error";
 
 export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
 
@@ -34,7 +35,11 @@ export async function updateMeal(request: FastifyRequest, reply: FastifyReply) {
     return reply.status(200).send({ meal })
 
   } catch (error) {
-    return reply.status(400).send({ message: 'Erro ao atualizar refeição.' })
+    if (error instanceof MealNotFoundError) {
+      return reply.status(404).send({ message: error.message })
+    }
+
+    return reply.status(500).send({ message: 'Erro interno do servidor.' })
   }
 
 }

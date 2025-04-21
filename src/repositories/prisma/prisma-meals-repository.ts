@@ -22,4 +22,13 @@ export class PrismaMealsRepository implements IMealsRepository {
     return meal
   }
 
+  async findById(idMeal: string) {
+    const meal = await prisma.meal.findUnique({
+      where: {
+        id: idMeal
+      }
+    })
+
+    return meal
+  }
 }

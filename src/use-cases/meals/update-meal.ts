@@ -1,5 +1,6 @@
 import { Meal } from "@prisma/client";
 import { IMealsRepository } from "../../repositories/meals-repository";
+import { MealNotFoundError } from "../errors/meal-not-found-error";
 
 interface UpdateMealRequest {
   name?: string;
@@ -18,8 +19,14 @@ export class UpdateMealUseCase {
     private mealsRepository: IMealsRepository,
   ) { }
 
-
   async execute({ name, description, isOnDiet, mealDateTime }: UpdateMealRequest, idMeal: string): Promise<UpdateMealResponse> {
+
+    const mealExists = await this.mealsRepository.findById(idMeal)
+
+    if (!mealExists) {
+      throw new MealNotFoundError()
+    }
+
     const meal = await this.mealsRepository.update({
       name: name,
       description: description ?? null,

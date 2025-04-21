@@ -5,6 +5,7 @@ import { CreateMealUseCase } from "./create-meal";
 import { InMemoryMealsRepository } from "../../repositories/in-memory/in-memory-meals-repository";
 import { UpdateMealUseCase } from "./update-meal";
 import { object } from "zod";
+import { MealNotFoundError } from "../errors/meal-not-found-error";
 
 let mealRepository: IMealsRepository
 let createMealUseCase: CreateMealUseCase
@@ -39,4 +40,11 @@ describe('Update Meal Use Case', () => {
       id: meal.id,
     }))
   })
+
+  it('should not be able to update a meal that does not exist', async () => {
+    await expect(() => updateMealUseCase.execute({
+      name: 'xsalada',
+    }, 'meal-01')).rejects.toBeInstanceOf(MealNotFoundError)
+  })
+
 })
