@@ -35,6 +35,13 @@ export class PrismaMealsRepository implements IMealsRepository {
 
   async findById(idMeal: string) {
     const meal = await prisma.meal.findUnique({
+      include: {
+        user: {
+          select: {
+            name: true
+          }
+        }
+      },
       where: {
         id: idMeal
       }
