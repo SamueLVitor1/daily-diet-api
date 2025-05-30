@@ -10,10 +10,13 @@ export async function createMeal(request: FastifyRequest, reply: FastifyReply) {
     description: z.string().nullable().optional(),
     mealDateTime: z.coerce.date(),
     isOnDiet: z.boolean(),
-    userId: z.string()
   })
 
-  const { name, description, mealDateTime, isOnDiet, userId } = createMealBodySchema.parse(request.body)
+
+
+  const { name, description, mealDateTime, isOnDiet, } = createMealBodySchema.parse(request.body)
+
+  const userId = request.user.sub
 
   const mealRepository = new PrismaMealsRepository()
   const createMealUseCase = new CreateMealUseCase(mealRepository)
