@@ -4,7 +4,6 @@ import { randomUUID } from "node:crypto";
 import { MealNotFoundError } from "../../use-cases/errors/meal-not-found-error";
 
 export class InMemoryMealsRepository implements IMealsRepository {
-
   public items: Meal[] = []
 
   async create(data: Prisma.MealUncheckedCreateInput) {
@@ -59,5 +58,15 @@ export class InMemoryMealsRepository implements IMealsRepository {
     }
 
     return meal
+  }
+
+  async findAllByUserId(userId: string) {
+    const meals = this.items.filter(meal => meal.user_id === userId)
+
+    if (meals.length === 0) {
+      return null
+    }
+
+    return meals
   }
 }

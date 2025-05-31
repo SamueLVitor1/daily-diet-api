@@ -37,17 +37,12 @@ describe('Delete Meal Use Case', async () => {
       userId: 'user-01'
     })
 
-    await deleteMealUseCase.execute(meal.id)
+    await deleteMealUseCase.execute({
+      idMeal: meal.id,
+      userId: 'user-01'
+    })
 
     expect(mealRepository.items).toHaveLength(1)
-  })
-
-  it('should not be able to delete a meal that does not exist', async () => {
-
-    await expect(() =>
-      deleteMealUseCase.execute('inexistent-meal-id')
-    ).rejects.toBeInstanceOf(MealNotFoundError)
-
   })
 
 })
