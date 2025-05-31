@@ -8,4 +8,5 @@ export interface IMealsRepository {
   findAllByUserId(userId: string): Promise<Meal[] | null>
   countMealsByUserId(userId: string): Promise<number>
   countMealsOnDietByUser(userId: string): Promise<number>
+  countMealsOffDietByUser(userId: string): Promise<number>
 }
