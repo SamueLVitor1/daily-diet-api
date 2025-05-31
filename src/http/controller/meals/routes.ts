@@ -4,6 +4,7 @@ import { updateMeal } from "./update";
 import { deleteMeal } from "./delete";
 import { viewDetailsMeal } from "./view-details";
 import { verifyJWT } from "../../middlewares/verify-jwt";
+import { listMeals } from "./list";
 
 export async function mealsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJWT)
@@ -12,4 +13,5 @@ export async function mealsRoutes(app: FastifyInstance) {
   app.put('/meals/:idMeal/update', updateMeal)
   app.delete('/meals/:idMeal/delete', deleteMeal)
   app.get('/meals/:idMeal/view-details', viewDetailsMeal)
+  app.get('/meals', listMeals);
 }
