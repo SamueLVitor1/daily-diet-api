@@ -6,4 +6,5 @@ export interface IMealsRepository {
   findById(idMeal: string): Promise<Meal | null>
   delete(idMeal: string): Promise<void>
   findAllByUserId(userId: string): Promise<Meal[] | null>
+  countMealsByUserId(userId: string): Promise<number>
 }

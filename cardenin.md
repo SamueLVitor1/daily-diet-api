@@ -5,7 +5,7 @@
 - [x] O sistema deve permitir o cadastro de uma nova refeição para o usuário logado.  
 - [x] O sistema deve permitir a edição de uma refeição existente do usuário logado.  
 - [x] O sistema deve permitir a exclusão de uma refeição do usuário logado.  
-- [ ] O sistema deve permitir a listagem de todas as refeições do usuário logado.  
+- [x] O sistema deve permitir a listagem de todas as refeições do usuário logado.  
 - [x] O sistema deve permitir a visualização dos detalhes de uma refeição específica.  
 - [ ] O sistema deve disponibilizar métricas ao usuário, como:
   - [ ] Total de refeições cadastradas  
