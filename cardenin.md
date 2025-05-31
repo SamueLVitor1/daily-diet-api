@@ -8,7 +8,7 @@
 - [x] O sistema deve permitir a listagem de todas as refeições do usuário logado.  
 - [x] O sistema deve permitir a visualização dos detalhes de uma refeição específica.  
 - [ ] O sistema deve disponibilizar métricas ao usuário, como:
-  - [ ] Total de refeições cadastradas  
+  - [ ] Total de refeições cadastradas  - :fazer a controller
   - [ ] Total de refeições dentro da dieta  
   - [ ] Total de refeições fora da dieta  
   - [ ] Melhor sequência de refeições dentro da dieta  
@@ -18,10 +18,10 @@
 ## 📏 Regras de Negócio
 
 - [ ] O usuário só pode visualizar, editar ou excluir suas próprias refeições.  
-- [ ] Cada refeição deve obrigatoriamente indicar se está ou não dentro da dieta.  
+- [x] Cada refeição deve obrigatoriamente indicar se está ou não dentro da dieta.  
 - [ ] A métrica de "melhor sequência de refeições dentro da dieta" deve considerar dias ou registros consecutivos com refeições marcadas como "dentro da dieta".  
-- [ ] A identificação do usuário deve ser obrigatória para acessar rotas protegidas.  
-- [ ] Não deve ser permitido criar refeições com datas futuras.  
+- [x] A identificação do usuário deve ser obrigatória para acessar rotas protegidas.  
+- [x] Não deve ser permitido criar refeições com datas futuras.  
 
 ---
 

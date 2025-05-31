@@ -77,4 +77,12 @@ export class InMemoryMealsRepository implements IMealsRepository {
 
     return meals.length
   }
+
+  async countMealsOnDietByUser(userId: string) {
+    const meals = this.items.filter(meal => {
+      return meal.user_id === userId && meal.is_on_diet === true
+    })
+
+    return meals.length
+  }
 }
